@@ -125,7 +125,11 @@ class _HomeauthScreenState extends State<HomeauthScreen> {
                               child: new Row(
                                 children: <Widget>[
                                   new Expanded(
-                                    child: new Container(
+                                    child: InkWell(
+                                      onTap: (){
+                                        Navigator.pushNamed(context, '/signup');
+                                      },
+                                      child: Container(
                                       padding: const EdgeInsets.symmetric(
                                         vertical: 12.0,
                                         horizontal: 12.0,
@@ -147,6 +151,7 @@ class _HomeauthScreenState extends State<HomeauthScreen> {
                                         ],
                                       ),
                                     ),
+                                    )
                                   ),
                                 ],
                               ),

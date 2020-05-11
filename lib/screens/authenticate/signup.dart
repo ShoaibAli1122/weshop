@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:weshoping/animations/FadeAnimation.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignupScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   bool _obscure = true;
@@ -55,10 +55,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.all(30.0),
+                          padding: EdgeInsets.only(bottom: 15.0),
                           child: new SvgPicture.asset(
-                            'lib/assets/images/login_back.svg',
-                            width: 330,
+                            'lib/assets/images/login.svg',
+                            width: 290,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(bottom: 15.0),
+                          child:Text('Criar sua conta',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold
+                            ),
                           ),
                         ),
                         Container(
@@ -160,42 +170,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   width: 2.0
                                 ),
                               ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6.0),
-                                borderSide: BorderSide(
-                                  color: Colors.red,
-                                  width: 2.0
-                                ),
-                              ),
                             ),
                           ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 0.0),
-                        child: new Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.only(right: 0.0),
-                              child: new FlatButton(
-                                child: new Text(
-                                  "Esqueceu a senha?",
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                    fontSize: 15.0,
-                                  ),
-                                  textAlign: TextAlign.end,
-                                ),
-                                onPressed: () => {
-                                  Navigator.pushNamed(context, '/recoverypass')
-                                },
-                              ),
-                            ),
-                          ],
-                        )
-                        ),
+                        SizedBox(height: 20),
                         Container(
                           width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.only(
@@ -228,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       children: <Widget>[
                                         new Expanded(
                                           child: Text(
-                                            "Login",
+                                            "Cadastrar-me",
                                             textAlign:
                                                 TextAlign.center,
                                             style: TextStyle(
@@ -275,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     children: <Widget>[
                                       new Expanded(
                                         child: Text(
-                                          "Criar conta",
+                                          "Criar uma conta de empresa",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: 16,
@@ -304,7 +282,5 @@ class _LoginScreenState extends State<LoginScreen> {
         )
       );
   }
-  _dologin() async {
-    Navigator.pushNamed(context, '/homemap');
-  }
+  _dologin() async {}
 }
