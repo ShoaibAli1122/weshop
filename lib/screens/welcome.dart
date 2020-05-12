@@ -28,7 +28,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Future.delayed(
       Duration(seconds: 3),
       () {
-        Navigator.pushNamed(context, '/homemap');
+        // Navigator.pushNamed(context, '/homemap');
+        Navigator.pushNamed(context, '/homeauth');
       }
     );
   }

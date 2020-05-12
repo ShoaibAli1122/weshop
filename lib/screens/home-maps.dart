@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:weshoping/widgets/sidebar/sidebar.dart';
 
 class HomeMapsScreen extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class _HomeMapsScreenState extends State<HomeMapsScreen> {
   GoogleMapController mapController;
   Set<Marker> markers = new Set<Marker> ();
   double _zoom = 16.8;
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -19,12 +20,15 @@ class _HomeMapsScreenState extends State<HomeMapsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: Sidebar(),
       body: Stack(
         children: <Widget>[
           _googlemap(context),
           _searchPlace(context),
-          // _rangeRadius(context),
-          // _pontoInitial(context)
+          _listLojas(context),
+          _pontoInitial(context),
+          _getfeeds(context)
         ]
       ),
     );
@@ -57,7 +61,11 @@ class _HomeMapsScreenState extends State<HomeMapsScreen> {
 
         child: Row(
           children: <Widget>[
-            Container(
+            InkWell( 
+              onTap: (){
+                 _scaffoldKey.currentState.openDrawer();
+              },
+              child: Container(
               width: 50,
               height: 50,
               decoration: new BoxDecoration(
@@ -71,7 +79,7 @@ class _HomeMapsScreenState extends State<HomeMapsScreen> {
                   color:Theme.of(context).primaryColor,
                 ),
               )
-            ),
+            ),),
             SizedBox(width: 15,),
             Expanded(
               flex: 1,
@@ -112,10 +120,104 @@ class _HomeMapsScreenState extends State<HomeMapsScreen> {
     );
   }
 
+  Widget _pontoInitial(BuildContext context){
+    return Positioned(
+      right: 16,
+      top: MediaQuery.of(context).size.height - 220,
+      // left: 30,
+      child:GestureDetector( 
+        onTap: (){
+          _animateCamera();
+        },
+        child: Container(
+        decoration: new BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: new BorderRadius.circular(6)
+        ),
+        width: 40,
+        height: 40,
+        child: Center(
+          child: Icon(Icons.my_location, color: Colors.white,),
+        )
+      )
+      )
+    );
+  }
+
+  Widget _getfeeds(BuildContext context){
+    return Positioned(
+      right: 16,
+      top: MediaQuery.of(context).size.height - 275,
+      child:GestureDetector( 
+        onTap: (){
+          _animateCamera();
+        },
+        child: Container(
+        decoration: new BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: new BorderRadius.circular(6)
+        ),
+        width: 40,
+        height: 40,
+        child: Center(
+          child: Icon(Icons.featured_play_list, color: Colors.white,),
+        )
+      )
+      )
+    );
+  }
+
+  
+
+  Widget _listLojas(BuildContext context){
+    return Positioned(
+      top: MediaQuery.of(context).size.height - 176,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 169,
+        child: PageView.builder(
+          controller: PageController(viewportFraction: 0.7),
+          onPageChanged: (value){
+            print(value);
+          },
+          itemCount: 30,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index){
+            return Padding(
+              padding: EdgeInsets.all(9),
+              child: Container(
+                decoration: new BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: new BorderRadius.circular(6)
+                ),
+                width: 50,
+                child: Center(
+                  child:Text('data',)
+                ),
+              ) 
+            );
+          }
+        ),
+      )
+    );
+  }
+
   // Metodos para utilizacao do mapa
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
     _addImovelMaker();
+  }
+
+  void _animateCamera() {
+    LatLng position = new LatLng(-28.2893383, -52.4479862);
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: position,
+          zoom: _zoom,
+        ),
+      ),
+    );
   }
 
   void _addImovelMaker(){

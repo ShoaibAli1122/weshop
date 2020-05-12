@@ -38,6 +38,8 @@ flutter:
    - lib/assets/images/present_home.svg
    - lib/assets/images/login.svg
    - lib/assets/images/login_back.svg
+   - lib/assets/images/male_avatar.svg
+   
 
   fonts:
     - family: icomoon
